@@ -3,10 +3,12 @@ package qa.com.solarSystemInformation;
 public class SolarSystemInformation {
 
     private String userID;
+    private String password;
 
 
-    public SolarSystemInformation(String userID) {
+    public SolarSystemInformation(String userID, String password) {
         this.userID = userID;
+        this.password = password;
     }
 
     public String getUserID() throws invalidUserInputException {
@@ -19,6 +21,6 @@ public class SolarSystemInformation {
     }
 
     public String getUserPassword() {
-
+        return password;
     }
 }
