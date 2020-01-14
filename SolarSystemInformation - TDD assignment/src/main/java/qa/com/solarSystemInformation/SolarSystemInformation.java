@@ -41,13 +41,13 @@ public class SolarSystemInformation {
     public String getAstronomicalObjectClassificationCode() throws invalidWebServiceDataFormatException {
         if (astronomicalObjectClassificationCode.matches("[A-Z][0-9]{0,8}[A-Z][a-z]{2}[0-9]{1,3}[T,M,B,L,TL]")) {
         } else {
-            throw new invalidWebServiceDataFormatException("Invalid data format returned from web service");
+            throw new invalidWebServiceDataFormatException("Invalid AOC data format returned from web service");
         }
 
         return astronomicalObjectClassificationCode;
     }
 
-    private void setAstronomicalObjectClassificationCode(String astronomicalObjectClassificationCode) {
+    void setAstronomicalObjectClassificationCode(String astronomicalObjectClassificationCode) {
         this.astronomicalObjectClassificationCode = astronomicalObjectClassificationCode;
     }
 
