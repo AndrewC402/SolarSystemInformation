@@ -22,7 +22,7 @@ public class SolarSystemInformationTest {
     }
 
     @Test
-    void userID_exception_thrown_when_invalid_data_is_input () {
+    void invalid_user_input_exception_thrown_when_invalid_data_is_input () {
         //arrange
         String invalidUserID = "&%ad3R";
         cut = new SolarSystemInformation(invalidUserID);
@@ -40,7 +40,7 @@ public class SolarSystemInformationTest {
     }
 
     @Test
-    void userID_exception_thrown_when_0000_found_in_user_input () {
+    void invalid_user_input_exception_thrown_when_0000_found_in_user_input () {
         //arrange
         String invalidUserIDContaining0000 = "AB0000";
         cut = new SolarSystemInformation(invalidUserIDContaining0000);
@@ -55,5 +55,20 @@ public class SolarSystemInformationTest {
 
         //assert
         assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    void password_returned_when_valid_data_is_input () {
+        //arrange
+        String validUserPassword = "AB1234";
+        cut = new SolarSystemInformation(validUserPassword);
+        String expectedResult = "AB1234";
+
+        //act
+        String actualResult = cut.getUserPassword();
+
+        //assert
+        assertEquals(expectedResult,actualResult);
+    }
     }
 }

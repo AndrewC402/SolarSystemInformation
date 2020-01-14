@@ -17,4 +17,8 @@ public class SolarSystemInformation {
             }
         return userID;
     }
+
+    public String getUserPassword() {
+
+    }
 }
