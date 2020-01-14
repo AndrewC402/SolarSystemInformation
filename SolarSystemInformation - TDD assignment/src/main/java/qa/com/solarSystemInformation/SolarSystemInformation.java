@@ -20,6 +20,8 @@ public class SolarSystemInformation {
         this.userPassword = userPassword;
     }
 
+
+
     public String getUserID() throws invalidUserInputException {
         if (!userID.contains("0000") && userID.matches("[A-Z]{2}[0-9]{4}")) {
             this.userID = userID;
@@ -41,7 +43,7 @@ public class SolarSystemInformation {
     public String getAstronomicalObjectClassificationCode() throws invalidWebServiceDataFormatException {
         if (astronomicalObjectClassificationCode.matches("[A-Z][0-9]{0,8}[A-Z][a-z]{2}[0-9]{1,3}[T,M,B,L,TL]")) {
         } else {
-            throw new invalidWebServiceDataFormatException("Invalid AOC data format returned from web service");
+            throw new invalidWebServiceDataFormatException("Invalid AOC data format input");
         }
         return astronomicalObjectClassificationCode;
     }

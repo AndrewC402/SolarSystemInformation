@@ -129,7 +129,7 @@ public class SolarSystemInformationTest {
         String invalidAOC = "£4ty3135";
         cut = new SolarSystemInformation(validUserID,validPassword);
         cut.setAstronomicalObjectClassificationCode(invalidAOC);
-        String expectedMessage = "Invalid data format returned from web service";
+        String expectedMessage = "Invalid AOC data format input";
 
         //act
         Exception exception = assertThrows(invalidWebServiceDataFormatException.class, ()-> {
@@ -172,6 +172,25 @@ public class SolarSystemInformationTest {
         //act
         Exception exception = assertThrows(invalidWebServiceDataFormatException.class, ()-> {
             cut.getObjectName();
+        });
+
+        String actualMessage = exception.getMessage();
+
+        //assert
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    void initialiseAOCDetails_method_throws_invalid_format_exception_when_invalid_AOC_input () {
+        //arrange
+        String invalidAOC = "kjngfd3 fafd";
+        cut = new SolarSystemInformation(validUserID,validPassword);
+        cut.setAstronomicalObjectClassificationCode(invalidAOC);
+        String expectedMessage = "Invalid AOC format input";
+
+        //act
+        Exception exception = assertThrows(invalidUserInputException.class, ()-> {
+            cut.initialiseAOCDetails(invalidAOC);
         });
 
         String actualMessage = exception.getMessage();
