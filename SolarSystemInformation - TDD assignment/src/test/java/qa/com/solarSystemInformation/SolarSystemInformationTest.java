@@ -37,7 +37,23 @@ public class SolarSystemInformationTest {
 
         //assert
         assertTrue(actualMessage.contains(expectedMessage));
+    }
 
+    @Test
+    void userID_exception_thrown_when_0000_found_in_user_input () {
+        //arrange
+        String invalidUserIDContaining0000 = "AB0000";
+        cut = new SolarSystemInformation(invalidUserIDContaining0000);
+        String expectedMessage = "Invalid userID format entered";
 
+        //act
+        Exception exception = assertThrows(invalidUserInputException.class, () -> {
+            cut.getUserID();
+        });
+
+        String actualMessage = exception.getMessage();
+
+        //assert
+        assertTrue(actualMessage.contains(expectedMessage));
     }
 }

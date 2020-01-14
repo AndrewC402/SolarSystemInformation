@@ -15,8 +15,6 @@ public class SolarSystemInformation {
             } else {
                 throw new invalidUserInputException("Invalid userID format entered");
             }
-
-
         return userID;
     }
 }
