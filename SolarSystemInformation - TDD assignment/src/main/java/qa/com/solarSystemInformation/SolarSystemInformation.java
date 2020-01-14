@@ -38,7 +38,12 @@ public class SolarSystemInformation {
         return userPassword;
     }
 
-    public String getAstronomicalObjectClassificationCode() {
+    public String getAstronomicalObjectClassificationCode() throws invalidWebServiceDataFormatException {
+        if (astronomicalObjectClassificationCode.matches("[A-Z][0-9]{0,8}[A-Z][a-z]{2}[0-9]{1,3}[T,M,B,L,TL]")) {
+        } else {
+            throw new invalidWebServiceDataFormatException("Invalid data format returned from web service");
+        }
+
         return astronomicalObjectClassificationCode;
     }
 

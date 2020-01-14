@@ -110,7 +110,7 @@ public class SolarSystemInformationTest {
     }
 
     @Test
-    void AOC_returned_when_valid_data_input () {
+    void AOC_returned_when_valid_data_input () throws invalidWebServiceDataFormatException {
         //arrange
         cut = new SolarSystemInformation(validUserID,validPassword);
         cut.setAstronomicalObjectClassificationCode(validAOC);
