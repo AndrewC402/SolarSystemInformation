@@ -145,7 +145,7 @@ public class SolarSystemInformationTest {
     @Test
     void invalid_web_service_data_format_exception_thrown_when_invalid_object_type_input () {
         //arrange
-        String invalidObjectType = "G";
+        String invalidObjectType = "dwarf planet"; //object types should be Pascal cased
         cut = new SolarSystemInformation(validUserID,validPassword);
         cut.setObjectType(invalidObjectType);
         String expectedMessage = "Invalid Object Type data format returned from web service";
@@ -159,5 +159,25 @@ public class SolarSystemInformationTest {
 
         //assert
         assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    void invalid_web_service_data_format_exception_thrown_when_invalid_object_name_input () {
+        //arrange
+        String invalidObjectName = "sirius B"; //object types should be Pascal cased
+        cut = new SolarSystemInformation(validUserID,validPassword);
+        cut.setObjectName(invalidObjectName);
+        String expectedMessage = "Invalid Object Name data format returned from web service";
+
+        //act
+        Exception exception = assertThrows(invalidWebServiceDataFormatException.class, ()-> {
+            cut.getObjectName();
+        });
+
+        String actualMessage = exception.getMessage();
+
+        //assert
+        assertTrue(actualMessage.contains(expectedMessage));
+
     }
 }

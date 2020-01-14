@@ -51,7 +51,7 @@ public class SolarSystemInformation {
     }
 
     public String getObjectType() throws invalidWebServiceDataFormatException {
-        if (objectType.matches("[A-Z][a-z]*")) {
+        if (objectType.matches("[A-Z][a-z]* [A-Z]?[a-z]*")) {
         } else {
             throw new invalidWebServiceDataFormatException("Invalid Object Type data format returned from web service");
         }
