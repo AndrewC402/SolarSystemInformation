@@ -19,7 +19,5 @@ public class SolarSystemInformationTest {
 
         //assert
         assertEquals(expectedResult,actualResult);
-
-
     }
 }
