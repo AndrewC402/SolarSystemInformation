@@ -8,6 +8,7 @@ public class SolarSystemInformationTest {
     private SolarSystemInformation cut;
     private String validUserID = "AB1234";
     private String validPassword = "Ab12!&CDe£80f";
+    private String validAOC = "SSun27";
 
 
     @Test
@@ -106,5 +107,21 @@ public class SolarSystemInformationTest {
 
         //assert
         assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    void AOC_returned_when_valid_data_input () {
+        //arrange
+        cut = new SolarSystemInformation(validUserID,validPassword);
+        cut.setAstronomicalObjectClassificationCode(validAOC);
+        String expectedResult = validAOC;
+
+        //act
+        String actualResult = cut.getAstronomicalObjectClassificationCode();
+
+        //assert
+        assertEquals(expectedResult,actualResult);
+        
+
     }
     }
