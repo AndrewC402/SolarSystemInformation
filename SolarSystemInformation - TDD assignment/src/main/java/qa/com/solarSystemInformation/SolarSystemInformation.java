@@ -43,7 +43,6 @@ public class SolarSystemInformation {
         } else {
             throw new invalidWebServiceDataFormatException("Invalid AOC data format returned from web service");
         }
-
         return astronomicalObjectClassificationCode;
     }
 
@@ -51,11 +50,15 @@ public class SolarSystemInformation {
         this.astronomicalObjectClassificationCode = astronomicalObjectClassificationCode;
     }
 
-    public String getObjectType() {
+    public String getObjectType() throws invalidWebServiceDataFormatException {
+        if (objectType.matches("[A-Z][a-z]*")) {
+        } else {
+            throw new invalidWebServiceDataFormatException("Invalid Object Type data format returned from web service");
+        }
         return objectType;
     }
 
-    public void setObjectType(String objectType) {
+    void setObjectType(String objectType) {
         this.objectType = objectType;
     }
 

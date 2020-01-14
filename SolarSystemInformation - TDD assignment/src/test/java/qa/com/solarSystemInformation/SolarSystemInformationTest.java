@@ -143,7 +143,7 @@ public class SolarSystemInformationTest {
     }
 
     @Test
-    void invalid_web_service_data_format_exception_thrown_when_invalid_objectType_input () {
+    void invalid_web_service_data_format_exception_thrown_when_invalid_object_type_input () {
         //arrange
         String invalidObjectType = "G";
         cut = new SolarSystemInformation(validUserID,validPassword);
