@@ -77,7 +77,7 @@ public class SolarSystemInformationTest {
         //arrange
         String invalidPasswordLength = "xv4£1D";
         cut = new SolarSystemInformation(validUserID,invalidPasswordLength);
-        String expectedMessage = "Invalid userID format entered";
+        String expectedMessage = "Invalid password format entered";
 
         //act
         Exception exception = assertThrows(invalidUserInputException.class, () -> {
