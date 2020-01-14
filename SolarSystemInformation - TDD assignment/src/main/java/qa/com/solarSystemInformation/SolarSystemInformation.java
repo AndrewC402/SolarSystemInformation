@@ -47,7 +47,7 @@ public class SolarSystemInformation {
         return astronomicalObjectClassificationCode;
     }
 
-    public void setAstronomicalObjectClassificationCode(String astronomicalObjectClassificationCode) {
+    private void setAstronomicalObjectClassificationCode(String astronomicalObjectClassificationCode) {
         this.astronomicalObjectClassificationCode = astronomicalObjectClassificationCode;
     }
 
