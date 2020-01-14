@@ -89,4 +89,22 @@ public class SolarSystemInformationTest {
         //assert
         assertTrue(actualMessage.contains(expectedMessage));
     }
+
+    @Test
+    void invalid_user_input_exception_thrown_when_invalid_password_format_is_input () {
+        //arrange
+        String invalidPasswordFormat = "aaaaaaaaaa"; //password must contain at least one upper case letter, number, and special character
+        cut = new SolarSystemInformation(validUserID,invalidPasswordFormat);
+        String expectedMessage = "Invalid password format entered";
+
+        //act
+        Exception exception = assertThrows(invalidUserInputException.class, () -> {
+            cut.getUserPassword();
+        });
+
+        String actualMessage = exception.getMessage();
+
+        //assert
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
     }
