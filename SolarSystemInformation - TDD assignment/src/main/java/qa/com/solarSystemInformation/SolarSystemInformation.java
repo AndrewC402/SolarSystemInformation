@@ -21,7 +21,7 @@ public class SolarSystemInformation {
     }
 
     public String getUserPassword() throws invalidUserInputException {
-        if (password.length() >= 10) {
+        if (password.length() >= 10 && password.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^£&+=()*?><;:])(?=\\S+$).{10,}$")) {
             this.password = password;
         } else {
             throw new invalidUserInputException("Invalid password format entered");
