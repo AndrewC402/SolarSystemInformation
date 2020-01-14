@@ -62,7 +62,11 @@ public class SolarSystemInformation {
         this.objectType = objectType;
     }
 
-    public String getObjectName() {
+    public String getObjectName() throws invalidWebServiceDataFormatException {
+        if (objectName.matches("[0-9]*([A-Z][a-z]*)+")) {
+        } else {
+            throw new invalidWebServiceDataFormatException("Invalid Object Name data format returned from web service");
+        }
         return objectName;
     }
 

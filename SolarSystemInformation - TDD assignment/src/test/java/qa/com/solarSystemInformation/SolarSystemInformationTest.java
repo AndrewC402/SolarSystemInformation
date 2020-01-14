@@ -178,6 +178,5 @@ public class SolarSystemInformationTest {
 
         //assert
         assertTrue(actualMessage.contains(expectedMessage));
-
     }
 }
