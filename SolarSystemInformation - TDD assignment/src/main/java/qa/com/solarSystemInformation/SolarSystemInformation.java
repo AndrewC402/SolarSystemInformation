@@ -33,8 +33,6 @@ public class SolarSystemInformation {
         if (astronomicalObjectClassificationCode.matches("[A-Z][0-9]{0,8}[A-Z][a-z]{2}[0-9]{1,3}[T,M,B,L,TL]")) {
             this.astronomicalObjectClassificationCode = astronomicalObjectClassificationCode;
 
-            exists = true;
-
             WebServiceStub stub = new WebServiceStub();
             stub.authenticate(getUserID(),getUserPassword());
             info = stub.getStatusInfo(astronomicalObjectClassificationCode);
@@ -51,7 +49,6 @@ public class SolarSystemInformation {
 
 
         } else {
-            exists = false;
             throw new invalidUserInputException("Invalid AOC data format input");
         }
     }

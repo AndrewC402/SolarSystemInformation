@@ -2,6 +2,9 @@
 package qa.com.solarSystemInformation;
 
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+
+import static org.mockito.Mockito.*;
 
 import java.lang.reflect.Array;
 import java.math.BigDecimal;
@@ -272,5 +275,22 @@ public class SolarSystemInformationTest {
         assertTrue(actualResult.contains(expectedResult));
 
     }
+
+    @Test
+    void invalid_userID_sets_all_fields_correctly () throws invalidWebServiceDataFormatException {
+        //arrange
+        String invalidUserID = "dsfafagd";
+        cut = new SolarSystemInformation(invalidUserID,validPassword);
+        String expectedResult = "Not allowed";
+
+        //act
+        String actualResult = cut.getObjectName();
+
+        //assert
+        assertEquals(expectedResult,actualResult);
+    }
+
+
+
 
 }
