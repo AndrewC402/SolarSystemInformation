@@ -13,7 +13,7 @@ public class WebServiceStub {
     public String getStatusInfo (String astronomicalObjectClassificationCode) {
         String statusInfo = "";
         if (isAuthenticated) {
-            statusInfo = "PEar150M,Planet,Earth,265,6371,384400,5972000000000000000000000000";
+            statusInfo = "PEar150M,Planet,Earth,365,6371,384400,5972000000000000000000000000";
         }
         return statusInfo;
     }

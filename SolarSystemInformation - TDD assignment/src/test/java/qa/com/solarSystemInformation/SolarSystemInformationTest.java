@@ -4,6 +4,7 @@ package qa.com.solarSystemInformation;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Array;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +15,7 @@ public class SolarSystemInformationTest {
     private SolarSystemInformation cut;
     private String validUserID = "AB1234";
     private String validPassword = "Ab12!&CDe£80f";
-    private String validAOC = "SSun27T";
+    private String validAOC = "PEar150M";
 
 
     @Test
@@ -150,24 +151,6 @@ public class SolarSystemInformationTest {
         assertTrue(actualMessage.contains(expectedMessage));
     }
 
-    @Test
-    void invalid_web_service_data_format_exception_thrown_when_invalid_object_type_input() {
-        //arrange
-        String invalidObjectType = "dwarf planet"; //object types should be Pascal cased
-        cut = new SolarSystemInformation(validUserID, validPassword);
-        cut.setObjectType(invalidObjectType);
-        String expectedMessage = "Invalid Object Type data format returned from web service";
-
-        //act
-        Exception exception = assertThrows(invalidWebServiceDataFormatException.class, () -> {
-            cut.getObjectType();
-        });
-
-        String actualMessage = exception.getMessage();
-
-        //assert
-        assertTrue(actualMessage.contains(expectedMessage));
-    }
 
     @Test
     void invalid_web_service_data_format_exception_thrown_when_invalid_object_name_returned() {
@@ -270,23 +253,24 @@ public class SolarSystemInformationTest {
 
         //assert
         assertEquals(expectedObjectType,actualObjectType);
+
+        System.out.println(cut.toString());
     }
+
+
+    @Test
+    void toString_method_returns_correctly_formatted_string_when_valid_AOC_input () throws invalidUserInputException {
+        //arrange
+        cut = new SolarSystemInformation(validUserID,validPassword);
+        cut.initialiseAOCDetails(validAOC);
+        String expectedResult = "Planet, Earth [PEar150M] 3.84E+5 km, 5.97E+27 kg";
+
+        //act
+        String actualResult = cut.toString();
+
+        //assert
+        assertTrue(actualResult.contains(expectedResult));
+
+    }
+
 }
-
-
-//    @Test
-//    void toString_method_returns_correctly_formatted_string_when_valid_AOC_input () throws invalidUserInputException {
-//        //arrange
-//        cut = new SolarSystemInformation(validUserID,validPassword);
-//        cut.initialiseAOCDetails(validAOC);
-//        String expectedResult = "Planet, Earth [PEar150M] 150E+003 km, 5.97E+024 kg";
-//
-//        //act
-//        String actualResult = cut.toString();
-//
-//        //assert
-//        assertTrue(actualResult.contains(expectedResult));
-//
-//    }
-//
-//}
