@@ -51,7 +51,7 @@ public class SolarSystemInformation {
         return userPassword;
     }
 
-    public String getAstronomicalObjectClassificationCode() throws invalidUserInputException {
+    public String getAstronomicalObjectClassificationCode() {
         return astronomicalObjectClassificationCode; //validation occurs in initialiseAOC()
     }
 
