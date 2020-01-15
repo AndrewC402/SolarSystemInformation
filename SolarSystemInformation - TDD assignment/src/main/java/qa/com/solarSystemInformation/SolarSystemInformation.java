@@ -20,7 +20,13 @@ public class SolarSystemInformation {
         this.userPassword = userPassword;
     }
 
+    public String initialiseAOCDetails (String astronomicalObjectClassificationCode) throws invalidUserInputException {
 
+        getAstronomicalObjectClassificationCode(); // throws the invalid user input exception
+
+        WebServiceStub stub = new WebServiceStub();
+        return stub.getStatusInfo(astronomicalObjectClassificationCode);
+    }
 
     public String getUserID() throws invalidUserInputException {
         if (!userID.contains("0000") && userID.matches("[A-Z]{2}[0-9]{4}")) {
@@ -40,10 +46,10 @@ public class SolarSystemInformation {
         return userPassword;
     }
 
-    public String getAstronomicalObjectClassificationCode() throws invalidWebServiceDataFormatException {
+    public String getAstronomicalObjectClassificationCode() throws invalidUserInputException {
         if (astronomicalObjectClassificationCode.matches("[A-Z][0-9]{0,8}[A-Z][a-z]{2}[0-9]{1,3}[T,M,B,L,TL]")) {
         } else {
-            throw new invalidWebServiceDataFormatException("Invalid AOC data format input");
+            throw new invalidUserInputException("Invalid AOC data format input");
         }
         return astronomicalObjectClassificationCode;
     }
