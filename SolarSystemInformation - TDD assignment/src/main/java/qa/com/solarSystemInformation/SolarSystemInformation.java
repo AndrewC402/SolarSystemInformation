@@ -21,11 +21,16 @@ public class SolarSystemInformation {
     }
 
     public String initialiseAOCDetails (String astronomicalObjectClassificationCode) throws invalidUserInputException {
+        String info;
+        if (astronomicalObjectClassificationCode.matches("[A-Z][0-9]{0,8}[A-Z][a-z]{2}[0-9]{1,3}[T,M,B,L,TL]")) {
+            WebServiceStub stub = new WebServiceStub();
+            stub.authenticate(getUserID(),getUserPassword());
+            info = stub.getStatusInfo(astronomicalObjectClassificationCode);
+        } else {
+            throw new invalidUserInputException("Invalid AOC data format input");
+        }
 
-        getAstronomicalObjectClassificationCode(); // throws the invalid user input exception
-
-        WebServiceStub stub = new WebServiceStub();
-        return stub.getStatusInfo(astronomicalObjectClassificationCode);
+        return info;
     }
 
     public String getUserID() throws invalidUserInputException {
