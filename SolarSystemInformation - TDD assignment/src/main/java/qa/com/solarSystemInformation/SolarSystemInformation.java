@@ -52,11 +52,7 @@ public class SolarSystemInformation {
     }
 
     public String getAstronomicalObjectClassificationCode() throws invalidUserInputException {
-        if (astronomicalObjectClassificationCode.matches("[A-Z][0-9]{0,8}[A-Z][a-z]{2}[0-9]{1,3}[T,M,B,L,TL]")) {
-        } else {
-            throw new invalidUserInputException("Invalid AOC data format input");
-        }
-        return astronomicalObjectClassificationCode;
+        return astronomicalObjectClassificationCode; //validation occurs in initialiseAOC()
     }
 
     void setAstronomicalObjectClassificationCode(String astronomicalObjectClassificationCode) {
