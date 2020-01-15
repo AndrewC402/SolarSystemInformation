@@ -79,19 +79,19 @@ public class SolarSystemInformation {
         return objectName;
     }
 
-    public void setObjectName(String objectName) {
+    void setObjectName(String objectName) {
         this.objectName = objectName;
     }
 
-    public boolean isExists() {
-        return exists;
-    }
+    public boolean isExists() { return exists; }
 
-    public void setExists(boolean exists) {
+    void setExists(boolean exists) {
         this.exists = exists;
     }
 
     public int getOrbitalPeriod() {
+
+
         return orbitalPeriod;
     }
 

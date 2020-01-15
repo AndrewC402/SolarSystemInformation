@@ -123,6 +123,8 @@ public class SolarSystemInformationTest {
         assertEquals(expectedResult, actualResult);
     }
 
+
+
     @Test
     void invalid_web_service_data_format_exception_thrown_when_invalid_AOC_input() {
         //arrange
@@ -162,7 +164,7 @@ public class SolarSystemInformationTest {
     }
 
     @Test
-    void invalid_web_service_data_format_exception_thrown_when_invalid_object_name_input() {
+    void invalid_web_service_data_format_exception_thrown_when_invalid_object_name_returned() {
         //arrange
         String invalidObjectName = "sirius B"; //object types should be Pascal cased
         cut = new SolarSystemInformation(validUserID, validPassword);
@@ -247,6 +249,21 @@ public class SolarSystemInformationTest {
 
         //assert
         assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    void toString_method_returns_correctly_formatted_string_when_valid_AOC_input () throws invalidUserInputException {
+        //arrange
+        cut = new SolarSystemInformation(validUserID,validPassword);
+        cut.initialiseAOCDetails(validAOC);
+        String expectedResult = "Planet, Earth [PEar150M] 150E+003 km, 5.97E+024 kg";
+
+        //act
+        String actualResult = cut.toString();
+
+        //assert
+        assertTrue(actualResult.contains(expectedResult));
+
     }
 
 }
