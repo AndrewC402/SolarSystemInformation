@@ -229,7 +229,24 @@ public class SolarSystemInformationTest {
 
         //assert
         assertTrue(actualMessage.contains(expectedMessage));
+    }
 
+    @Test
+    void initialiseAOC_throws_exception_when_invalid_password_input () {
+        //arrange
+        String invalidPassword = "bbbbbbb";
+        cut = new SolarSystemInformation(validUserID,invalidPassword);
+        String expectedMessage = "Invalid password format entered";
+
+        //act
+        Exception exception = assertThrows(invalidUserInputException.class, ()-> {
+            cut.initialiseAOCDetails(validAOC);
+        });
+
+        String actualMessage = exception.getMessage();
+
+        //assert
+        assertTrue(actualMessage.contains(expectedMessage));
     }
 
 }
