@@ -198,4 +198,18 @@ public class SolarSystemInformationTest {
         //assert
         assertTrue(actualMessage.contains(expectedMessage));
     }
+
+    @Test
+    void initialiseAOC_returns_string_of_info_when_valid_AOC_input () throws invalidUserInputException {
+        //arrange
+        cut = new SolarSystemInformation(validUserID,validPassword);
+        String expectedResult = "PEar150M,Planet,Earth,265,6371,384400,5.972 × 10^24";
+
+        //act
+        String actualResult = cut.initialiseAOCDetails(validAOC);
+
+        //assert
+        assertTrue(actualResult.contains(expectedResult));
+
+    }
 }
