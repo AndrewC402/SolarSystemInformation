@@ -278,6 +278,21 @@ public class SolarSystemInformationTest {
         assertEquals(expectedArrayList,actualArrayList);
     }
 
+    @Test
+    void set_object_type_returns_valid_data () throws invalidUserInputException, invalidWebServiceDataFormatException {
+        //arrange
+        cut = new SolarSystemInformation(validUserID,validPassword);
+        cut.initialiseAOCDetails(validAOC);
+        String expectedObjectType = "Planet";
+
+        //act
+        String actualObjectType = cut.getObjectType();
+
+        //assert
+        assertEquals(expectedObjectType,actualObjectType);
+    }
+}
+
 
 //    @Test
 //    void toString_method_returns_correctly_formatted_string_when_valid_AOC_input () throws invalidUserInputException {

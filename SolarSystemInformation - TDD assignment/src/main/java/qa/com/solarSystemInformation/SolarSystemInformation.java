@@ -132,4 +132,10 @@ public class SolarSystemInformation {
     public void setMass(BigDecimal mass) {
         this.mass = mass;
     }
+
+    @Override
+    public String toString() {
+        return objectType + ", " + objectName + " [" + astronomicalObjectClassificationCode + "] " +
+                semiMajorAxis + " km, " + mass + " kg";
+    }
 }
