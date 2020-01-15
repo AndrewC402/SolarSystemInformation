@@ -133,11 +133,11 @@ public class SolarSystemInformationTest {
 
 
     @Test
-    void invalid_web_service_data_format_exception_thrown_when_invalid_AOC_input() {
+    void invalid_web_service_data_format_exception_thrown_when_invalid_AOC_input() throws invalidUserInputException {
         //arrange
         String invalidAOC = "£4ty3135";
         cut = new SolarSystemInformation(validUserID, validPassword);
-        cut.setAstronomicalObjectClassificationCode(invalidAOC);
+        cut.initialiseAOCDetails(invalidAOC);
         String expectedMessage = "Invalid AOC data format input";
 
         //act
