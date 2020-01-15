@@ -1,6 +1,7 @@
 package qa.com.solarSystemInformation;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -18,29 +19,37 @@ public class SolarSystemInformation {
     private BigDecimal semiMajorAxis;
     private BigDecimal mass;
 
-    private String[] astroInfo;
     private List<String> astroInfoList;
+
+    private MathContext precision = new MathContext(3);
 
     public SolarSystemInformation(String userID, String userPassword) {
         this.userID = userID;
         this.userPassword = userPassword;
     }
 
-    public ArrayList<String> initialiseAOCDetails (String astronomicalObjectClassificationCode) throws invalidUserInputException {
+    public void initialiseAOCDetails (String astronomicalObjectClassificationCode) throws invalidUserInputException {
         String info;
         if (astronomicalObjectClassificationCode.matches("[A-Z][0-9]{0,8}[A-Z][a-z]{2}[0-9]{1,3}[T,M,B,L,TL]")) {
+            this.astronomicalObjectClassificationCode = astronomicalObjectClassificationCode;
             WebServiceStub stub = new WebServiceStub();
             stub.authenticate(getUserID(),getUserPassword());
             info = stub.getStatusInfo(astronomicalObjectClassificationCode);
 
             astroInfoList = new ArrayList<>(Arrays.asList(info.split(",")));
 
+            astronomicalObjectClassificationCode = astroInfoList.get(0);
+            objectType = astroInfoList.get(1);
+            objectName = astroInfoList.get(2);
+            orbitalPeriod = Integer.parseInt(astroInfoList.get(3));
+            radius = new BigDecimal(astroInfoList.get(4),precision);
+            semiMajorAxis = new BigDecimal(astroInfoList.get(5),precision);
+            mass = new BigDecimal(astroInfoList.get(6),precision);
+
 
         } else {
             throw new invalidUserInputException("Invalid AOC data format input");
         }
-
-        return (ArrayList<String>) astroInfoList;
     }
 
     public String getUserID() throws invalidUserInputException {
@@ -70,7 +79,7 @@ public class SolarSystemInformation {
     }
 
     public String getObjectType() throws invalidWebServiceDataFormatException {
-        if (objectType.matches("[A-Z][a-z]* [A-Z]?[a-z]*")) {
+        if (objectType.matches("[A-Z][a-z]* ?[A-Z]?[a-z]*")) {
         } else {
             throw new invalidWebServiceDataFormatException("Invalid Object Type data format returned from web service");
         }
@@ -78,7 +87,7 @@ public class SolarSystemInformation {
     }
 
     void setObjectType(String objectType) {
-        this.objectType = objectType;
+        this.objectType = astroInfoList.get(1);
     }
 
     public String getObjectName() throws invalidWebServiceDataFormatException {

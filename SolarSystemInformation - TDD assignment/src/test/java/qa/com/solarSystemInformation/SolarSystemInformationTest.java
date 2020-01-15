@@ -258,27 +258,6 @@ public class SolarSystemInformationTest {
     }
 
     @Test
-    void populated_arraylist_returned_of_info_when_initialise_AOC_called () throws invalidUserInputException {
-        //arrange
-        cut = new SolarSystemInformation(validUserID,validPassword);
-        cut.initialiseAOCDetails(validAOC);
-        List<String> expectedArrayList = new ArrayList<>();
-        expectedArrayList.add("PEar150M");
-        expectedArrayList.add("Planet");
-        expectedArrayList.add("Earth");
-        expectedArrayList.add("265");
-        expectedArrayList.add("6371");
-        expectedArrayList.add("384400");
-        expectedArrayList.add("5.972 × 10^24");
-
-        //act
-        ArrayList<String> actualArrayList = cut.initialiseAOCDetails(validAOC);
-
-        //assert
-        assertEquals(expectedArrayList,actualArrayList);
-    }
-
-    @Test
     void set_object_type_returns_valid_data () throws invalidUserInputException, invalidWebServiceDataFormatException {
         //arrange
         cut = new SolarSystemInformation(validUserID,validPassword);
@@ -287,6 +266,7 @@ public class SolarSystemInformationTest {
 
         //act
         String actualObjectType = cut.getObjectType();
+
 
         //assert
         assertEquals(expectedObjectType,actualObjectType);
