@@ -1,6 +1,12 @@
+
 package qa.com.solarSystemInformation;
 
 import org.junit.jupiter.api.Test;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class SolarSystemInformationTest {
@@ -201,19 +207,19 @@ public class SolarSystemInformationTest {
         assertTrue(actualMessage.contains(expectedMessage));
     }
 
-    @Test
-    void initialiseAOC_returns_string_of_info_when_valid_AOC_input() throws invalidUserInputException {
-        //arrange
-        cut = new SolarSystemInformation(validUserID, validPassword);
-        String expectedResult = "PEar150M,Planet,Earth,265,6371,384400,5.972 × 10^24";
-
-        //act
-        String actualResult = cut.initialiseAOCDetails(validAOC);
-
-        //assert
-        assertTrue(actualResult.contains(expectedResult));
-
-    }
+//    @Test
+//    void initialiseAOC_returns_string_of_info_when_valid_AOC_input() throws invalidUserInputException {
+//        //arrange
+//        cut = new SolarSystemInformation(validUserID, validPassword);
+//        String expectedResult = "PEar150M,Planet,Earth,265,6371,384400,5.972 × 10^24";
+//
+//        //act
+//        String actualResult = cut.initialiseAOCDetails(validAOC);
+//
+//        //assert
+//        assertTrue(actualResult.contains(expectedResult));
+//
+//    }
 
     @Test
     void initialiseAOC_throws_exception_when_invalid_userID_input() {
@@ -252,20 +258,40 @@ public class SolarSystemInformationTest {
     }
 
     @Test
-    void toString_method_returns_correctly_formatted_string_when_valid_AOC_input () throws invalidUserInputException {
+    void populated_arraylist_returned_of_info_when_initialise_AOC_called () throws invalidUserInputException {
         //arrange
         cut = new SolarSystemInformation(validUserID,validPassword);
         cut.initialiseAOCDetails(validAOC);
-        String expectedResult = "Planet, Earth [PEar150M] 150E+003 km, 5.97E+024 kg";
+        List<String> expectedArrayList = new ArrayList<>();
+        expectedArrayList.add("PEar150M");
+        expectedArrayList.add("Planet");
+        expectedArrayList.add("Earth");
+        expectedArrayList.add("265");
+        expectedArrayList.add("6371");
+        expectedArrayList.add("384400");
+        expectedArrayList.add("5.972 × 10^24");
 
         //act
-        String actualResult = cut.toString();
+        ArrayList<String> actualArrayList = cut.initialiseAOCDetails(validAOC);
 
         //assert
-        assertTrue(actualResult.contains(expectedResult));
-
+        assertEquals(expectedArrayList,actualArrayList);
     }
 
-}
 
-
+//    @Test
+//    void toString_method_returns_correctly_formatted_string_when_valid_AOC_input () throws invalidUserInputException {
+//        //arrange
+//        cut = new SolarSystemInformation(validUserID,validPassword);
+//        cut.initialiseAOCDetails(validAOC);
+//        String expectedResult = "Planet, Earth [PEar150M] 150E+003 km, 5.97E+024 kg";
+//
+//        //act
+//        String actualResult = cut.toString();
+//
+//        //assert
+//        assertTrue(actualResult.contains(expectedResult));
+//
+//    }
+//
+//}

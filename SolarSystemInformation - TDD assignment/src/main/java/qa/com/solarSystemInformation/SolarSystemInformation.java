@@ -1,6 +1,9 @@
 package qa.com.solarSystemInformation;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class SolarSystemInformation {
 
@@ -15,22 +18,29 @@ public class SolarSystemInformation {
     private BigDecimal semiMajorAxis;
     private BigDecimal mass;
 
+    private String[] astroInfo;
+    private List<String> astroInfoList;
+
     public SolarSystemInformation(String userID, String userPassword) {
         this.userID = userID;
         this.userPassword = userPassword;
     }
 
-    public String initialiseAOCDetails (String astronomicalObjectClassificationCode) throws invalidUserInputException {
+    public ArrayList<String> initialiseAOCDetails (String astronomicalObjectClassificationCode) throws invalidUserInputException {
         String info;
         if (astronomicalObjectClassificationCode.matches("[A-Z][0-9]{0,8}[A-Z][a-z]{2}[0-9]{1,3}[T,M,B,L,TL]")) {
             WebServiceStub stub = new WebServiceStub();
             stub.authenticate(getUserID(),getUserPassword());
             info = stub.getStatusInfo(astronomicalObjectClassificationCode);
+
+            astroInfoList = new ArrayList<>(Arrays.asList(info.split(",")));
+
+
         } else {
             throw new invalidUserInputException("Invalid AOC data format input");
         }
 
-        return info;
+        return (ArrayList<String>) astroInfoList;
     }
 
     public String getUserID() throws invalidUserInputException {
