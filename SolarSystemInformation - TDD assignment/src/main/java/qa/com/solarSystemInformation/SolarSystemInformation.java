@@ -19,13 +19,16 @@ public class SolarSystemInformation {
     private BigDecimal semiMajorAxis;
     private BigDecimal mass;
 
+    private IWebServiceMock webServiceMock;
+
     private List<String> astroInfoList;
 
     private MathContext precision = new MathContext(3);
 
-    public SolarSystemInformation(String userID, String userPassword) {
+    public SolarSystemInformation(String userID, String userPassword, IWebServiceMock webServiceMock) {
         this.userID = userID;
         this.userPassword = userPassword;
+        this.webServiceMock = webServiceMock;
     }
 
     public void initialiseAOCDetails (String astronomicalObjectClassificationCode) throws invalidUserInputException {
@@ -33,9 +36,12 @@ public class SolarSystemInformation {
         if (astronomicalObjectClassificationCode.matches("[A-Z][0-9]{0,8}[A-Z][a-z]{2}[0-9]{1,3}[T,M,B,L,TL]")) {
             this.astronomicalObjectClassificationCode = astronomicalObjectClassificationCode;
 
-            WebServiceStub stub = new WebServiceStub();
-            stub.authenticate(getUserID(),getUserPassword());
-            info = stub.getStatusInfo(astronomicalObjectClassificationCode);
+            webServiceMock.authenticate(getUserID(),getUserPassword());
+            info = webServiceMock.getStatusInfo(astronomicalObjectClassificationCode);
+
+//            WebServiceStub stub = new WebServiceStub();
+//            stub.authenticate(getUserID(),getUserPassword());
+//            info = stub.getStatusInfo(astronomicalObjectClassificationCode);
 
             astroInfoList = new ArrayList<>(Arrays.asList(info.split(",")));
 
@@ -47,7 +53,6 @@ public class SolarSystemInformation {
             semiMajorAxis = new BigDecimal(astroInfoList.get(5),precision);
             mass = new BigDecimal(astroInfoList.get(6),precision);
 
-
         } else {
             throw new invalidUserInputException("Invalid AOC data format input");
         }
@@ -57,7 +62,17 @@ public class SolarSystemInformation {
         if (!userID.contains("0000") && userID.matches("[A-Z]{2}[0-9]{4}")) {
             this.userID = userID;
         } else {
-            throw new invalidUserInputException("Invalid userID format entered");
+            astronomicalObjectClassificationCode = null;
+            objectType = "Not allowed";
+            objectName = "Not allowed";
+            orbitalPeriod = 0;
+            radius = BigDecimal.ZERO;
+            semiMajorAxis = BigDecimal.ZERO;
+            mass = BigDecimal.ZERO;
+
+           throw new invalidUserInputException("Invalid userID format entered");
+
+
         }
         return userID;
     }
