@@ -352,6 +352,25 @@ public class SolarSystemInformationTest {
         verify(webServiceMock);
     }
 
+    @Test
+    void get_orbital_period_returns_valid_data_when_web_service_successfully_called () throws invalidUserInputException, invalidWebServiceDataFormatException {
+        //arrange
+        expect(webServiceMock.authenticate(validUserID,validPassword)).andReturn(true);
+        expect(webServiceMock.getStatusInfo(validAOC)).andReturn("PEar150M,Planet,Earth,365,6371,384400,5972000000000000000000000000");
+        replay(webServiceMock);
+
+        cut = new SolarSystemInformation(validUserID,validPassword,webServiceMock);
+        cut.initialiseAOCDetails(validAOC);
+
+        //act
+        int actualResult = cut.getOrbitalPeriod();
+
+        //assert
+        assertEquals(365,actualResult);
+        verify(webServiceMock);
+    }
+
+
 
 
     @Test
