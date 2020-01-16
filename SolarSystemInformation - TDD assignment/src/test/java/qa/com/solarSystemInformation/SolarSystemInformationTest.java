@@ -1,16 +1,10 @@
 
 package qa.com.solarSystemInformation;
 
-import org.easymock.EasyMock;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.easymock.EasyMock.createMock;
-import static org.easymock.EasyMock.expect;
-import static org.easymock.EasyMock.expectLastCall;
-import static org.easymock.EasyMock.replay;
-import static org.easymock.EasyMock.verify;
-
+import static org.easymock.EasyMock.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 
@@ -42,57 +36,9 @@ public class SolarSystemInformationTest {
         assertEquals(expectedResult, actualResult);
     }
 
-    @Test
-    void invalid_user_input_exception_thrown_when_userID_is_too_short () {
-        //arrange
-        String userIDTooShort = "A1!b";
-        cut = new SolarSystemInformation(userIDTooShort,validPassword,webServiceMock);
-
-        //act and assert
-        Exception exception = assertThrows(invalidUserInputException.class, () -> {
-            cut.getUserID();
-        });
-    }
 
     @Test
-    void invalid_user_input_exception_thrown_when_userID_does_not_contain_capital_letter () {
-        //arrange
-        String userIDWithoutCapitalLetter = "a1b2abnhgf!";
-        cut = new SolarSystemInformation(userIDWithoutCapitalLetter,validPassword,webServiceMock);
-
-        //act and assert
-        Exception exception = assertThrows(invalidUserInputException.class, () -> {
-            cut.getUserID();
-        });
-    }
-
-    @Test
-    void invalid_user_input_exception_thrown_when_userID_does_not_contain_number () {
-        //arrange
-        String userIDWithoutNumber = "A!b£cdefgh";
-        cut = new SolarSystemInformation(userIDWithoutNumber,validPassword,webServiceMock);
-
-        //act and assert
-        Exception exception = assertThrows(invalidUserInputException.class, () -> {
-            cut.getUserID();
-        });
-    }
-
-    @Test
-    void invalid_user_input_exception_thrown_when_userID_does_not_contain_symbols () {
-        //arrange
-        String userIDWithoutSymbol = "A1b2cdefgh";
-        cut = new SolarSystemInformation(userIDWithoutSymbol,validPassword,webServiceMock);
-
-        //act and assert
-        assertThrows(invalidUserInputException.class, () -> {
-            cut.getUserID();
-        });
-    }
-
-
-    @Test
-    void invalid_user_input_exception_thrown_when_invalid_data_is_input() {
+    void invalid_user_input_exception_thrown_when_invalid_UserID_is_input() {
         //arrange
         String invalidUserID = "&%ad3R";
         cut = new SolarSystemInformation(invalidUserID, validPassword, webServiceMock);
@@ -128,6 +74,19 @@ public class SolarSystemInformationTest {
     }
 
     @Test
+    void invalid_user_input_exception_thrown_when_userID_is_too_short () {
+        //arrange
+        String userIDTooShort = "A1db";
+        cut = new SolarSystemInformation(userIDTooShort,validPassword,webServiceMock);
+
+        //act and assert
+        assertThrows(invalidUserInputException.class, () -> {
+            cut.getUserID();
+        });
+    }
+
+
+    @Test
     void password_returned_when_valid_data_is_input() throws invalidUserInputException {
         //arrange
         cut = new SolarSystemInformation(validUserID, validPassword, webServiceMock);
@@ -140,8 +99,46 @@ public class SolarSystemInformationTest {
         assertEquals(expectedResult, actualResult);
     }
 
+
     @Test
-    void invalid_user_input_exception_thrown_when_invalid_password_length_is_input() {
+    void invalid_user_input_exception_thrown_when_password_does_not_contain_capital_letter () {
+        //arrange
+        String passwordWithoutCapitalLetter = "a1b2abnhgf!";
+        cut = new SolarSystemInformation(validUserID,passwordWithoutCapitalLetter,webServiceMock);
+
+        //act and assert
+        assertThrows(invalidUserInputException.class, () -> {
+            cut.getUserPassword();
+        });
+    }
+
+    @Test
+    void invalid_user_input_exception_thrown_when_password_does_not_contain_number () {
+        //arrange
+        String passwordIDWithoutNumber = "A!b£cdefgh";
+        cut = new SolarSystemInformation(validUserID,passwordIDWithoutNumber,webServiceMock);
+
+        //act and assert
+        assertThrows(invalidUserInputException.class, () -> {
+            cut.getUserPassword();
+        });
+    }
+
+    @Test
+    void invalid_user_input_exception_thrown_when_password_does_not_contain_symbols () {
+        //arrange
+        String passwordWithoutSymbol = "A1b2cdefgh";
+        cut = new SolarSystemInformation(validUserID,passwordWithoutSymbol,webServiceMock);
+
+        //act and assert
+        assertThrows(invalidUserInputException.class, () -> {
+            cut.getUserPassword();
+        });
+    }
+
+
+    @Test
+    void invalid_user_input_exception_thrown_with_correct_message_when_invalid_password_length_is_input() {
         //arrange
         String invalidPasswordLength = "xv4£1D";
         cut = new SolarSystemInformation(validUserID, invalidPasswordLength, webServiceMock);
@@ -159,7 +156,7 @@ public class SolarSystemInformationTest {
     }
 
     @Test
-    void invalid_user_input_exception_thrown_when_invalid_password_format_is_input() {
+    void invalid_user_input_exception_thrown_with_correct_message_when_invalid_password_format_is_input() {
         //arrange
         String invalidPasswordFormat = "aaaaaaaaaa"; //password must contain at least one upper case letter, number, and special character
         cut = new SolarSystemInformation(validUserID, invalidPasswordFormat, webServiceMock);
