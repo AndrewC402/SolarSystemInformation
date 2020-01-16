@@ -43,6 +43,19 @@ public class SolarSystemInformationTest {
     }
 
     @Test
+    void invalid_user_input_exception_thrown_when_userID_is_too_short () {
+        //arrange
+        String userIDTooShort = "A1!b";
+        cut = new SolarSystemInformation(userIDTooShort,validPassword,webServiceMock);
+
+        //act
+        Exception exception = assertThrows(invalidUserInputException.class, () -> {
+            cut.getUserID();
+        });
+    }
+    
+
+    @Test
     void invalid_user_input_exception_thrown_when_invalid_data_is_input() {
         //arrange
         String invalidUserID = "&%ad3R";
@@ -293,18 +306,13 @@ public class SolarSystemInformationTest {
     @Test
     void invalid_userID_sets_all_fields_correctly () throws invalidWebServiceDataFormatException, invalidUserInputException {
         //arrange
-        String invalidUserID = "dsfafagd";
-
-        cut = new SolarSystemInformation(invalidUserID,validPassword, webServiceMock);
+        String invalidUserID = "aaaaaa";
+        cut = new SolarSystemInformation(invalidUserID,validPassword,webServiceMock);
         cut.initialiseAOCDetails(validAOC);
 
-        String expectedResult = "Not allowed";
-
-        //act
         String actualResult = cut.getObjectName();
 
-        //assert
-        assertEquals(expectedResult,actualResult);
+        assertTrue("Not Allowed".equals(actualResult));
     }
 
 

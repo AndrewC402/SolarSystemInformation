@@ -124,11 +124,7 @@ public class SolarSystemInformation {
         this.exists = exists;
     }
 
-    public int getOrbitalPeriod() {
-
-
-        return orbitalPeriod;
-    }
+    public int getOrbitalPeriod() { return orbitalPeriod; }
 
     public void setOrbitalPeriod(int orbitalPeriod) {
         this.orbitalPeriod = orbitalPeriod;
