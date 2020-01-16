@@ -4,6 +4,9 @@ package qa.com.solarSystemInformation;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
+import java.math.MathContext;
+
 import static org.easymock.EasyMock.*;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -14,6 +17,8 @@ public class SolarSystemInformationTest {
     private String validUserID = "AB1234";
     private String validPassword = "Ab12!&CDe£80f";
     private String validAOC = "PEar150M";
+
+    private MathContext precision = new MathContext(3);
 
     private IWebServiceMock webServiceMock;
 
@@ -367,6 +372,25 @@ public class SolarSystemInformationTest {
 
         //assert
         assertEquals(365,actualResult);
+        verify(webServiceMock);
+    }
+
+    @Test
+    void get_radius_returns_valid_data_when_web_service_successfully_called () throws invalidUserInputException, invalidWebServiceDataFormatException {
+        //arrange
+        expect(webServiceMock.authenticate(validUserID,validPassword)).andReturn(true);
+        expect(webServiceMock.getStatusInfo(validAOC)).andReturn("PEar150M,Planet,Earth,365,6371,384400,5972000000000000000000000000");
+        replay(webServiceMock);
+
+        cut = new SolarSystemInformation(validUserID,validPassword,webServiceMock);
+        cut.initialiseAOCDetails(validAOC);
+
+        //act
+        BigDecimal actualResult = cut.getRadius();
+
+
+        //assert
+        assertEquals(new BigDecimal(6.37E+3,precision),actualResult);
         verify(webServiceMock);
     }
 
