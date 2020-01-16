@@ -268,23 +268,25 @@ public class SolarSystemInformationTest {
         assertTrue("Planet".equals(actualResult));
         verify(webServiceMock);
 
-
-
     }
 
 
     @Test
     void toString_method_returns_correctly_formatted_string_when_valid_AOC_input () throws invalidUserInputException {
         //arrange
+        expect(webServiceMock.authenticate(validUserID,validPassword)).andReturn(true);
+        expect(webServiceMock.getStatusInfo(validAOC)).andReturn("PEar150M,Planet,Earth,365,6371,384400,5972000000000000000000000000");
+        replay(webServiceMock);
+
         cut = new SolarSystemInformation(validUserID,validPassword, webServiceMock);
         cut.initialiseAOCDetails(validAOC);
-        String expectedResult = "Planet, Earth [PEar150M] 3.84E+5 km, 5.97E+27 kg";
 
         //act
         String actualResult = cut.toString();
 
         //assert
-        assertTrue(actualResult.contains(expectedResult));
+        assertTrue("Planet, Earth [PEar150M] 3.84E+5 km, 5.97E+27 kg".equals(actualResult));
+        verify(webServiceMock);
 
     }
 
