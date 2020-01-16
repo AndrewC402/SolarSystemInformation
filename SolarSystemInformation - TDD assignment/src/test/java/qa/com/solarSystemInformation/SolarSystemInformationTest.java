@@ -48,12 +48,36 @@ public class SolarSystemInformationTest {
         String userIDTooShort = "A1!b";
         cut = new SolarSystemInformation(userIDTooShort,validPassword,webServiceMock);
 
-        //act
+        //act and assert
         Exception exception = assertThrows(invalidUserInputException.class, () -> {
             cut.getUserID();
         });
     }
-    
+
+    @Test
+    void invalid_user_input_exception_thrown_when_userID_does_not_contain_capital_letter () {
+        //arrange
+        String userIDWithoutCapitalLetter = "a1b2abnhgf!";
+        cut = new SolarSystemInformation(userIDWithoutCapitalLetter,validPassword,webServiceMock);
+
+        //act and assert
+        Exception exception = assertThrows(invalidUserInputException.class, () -> {
+            cut.getUserID();
+        });
+    }
+
+    @Test
+    void invalid_user_input_exception_thrown_when_userID_does_not_contain_number () {
+        //arrange
+        String userIDWithoutNumber = "A!b£cdefgh";
+        cut = new SolarSystemInformation(userIDWithoutNumber,validPassword,webServiceMock);
+
+        //act and assert
+        Exception exception = assertThrows(invalidUserInputException.class, () -> {
+            cut.getUserID();
+        });
+    }
+
 
     @Test
     void invalid_user_input_exception_thrown_when_invalid_data_is_input() {
