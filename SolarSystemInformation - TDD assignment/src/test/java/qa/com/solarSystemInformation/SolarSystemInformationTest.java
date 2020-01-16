@@ -1,6 +1,7 @@
 
 package qa.com.solarSystemInformation;
 
+import org.easymock.EasyMock;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -217,7 +218,9 @@ public class SolarSystemInformationTest {
     void invalid_web_service_data_format_exception_thrown_when_invalid_object_name_returned() throws invalidUserInputException {
         //arrange
         expect(webServiceMock.authenticate(validUserID,validPassword)).andReturn(true);
+        EasyMock.expectLastCall().times(2);
         expect(webServiceMock.getStatusInfo(validAOC)).andReturn("PEar150M,Planet,earth,365,6371,384400,5972000000000000000000000000"); //object name 'earth' should be in pascal casing
+        EasyMock.expectLastCall().times(2);
         replay(webServiceMock);
 
         cut = new SolarSystemInformation(validUserID, validPassword, webServiceMock);
@@ -306,7 +309,9 @@ public class SolarSystemInformationTest {
     void get_object_type_returns_valid_data_when_web_service_successfully_called () throws invalidUserInputException, invalidWebServiceDataFormatException {
         //arrange
         expect(webServiceMock.authenticate(validUserID,validPassword)).andReturn(true);
+        EasyMock.expectLastCall().times(1);
         expect(webServiceMock.getStatusInfo(validAOC)).andReturn("PEar150M,Planet,Earth,365,6371,384400,5972000000000000000000000000");
+        EasyMock.expectLastCall().times(1);
         replay(webServiceMock);
 
         cut = new SolarSystemInformation(validUserID,validPassword,webServiceMock);
@@ -325,7 +330,9 @@ public class SolarSystemInformationTest {
     void get_object_name_returns_valid_data_when_web_service_successfully_called () throws invalidUserInputException, invalidWebServiceDataFormatException {
         //arrange
         expect(webServiceMock.authenticate(validUserID,validPassword)).andReturn(true);
+        EasyMock.expectLastCall().times(1);
         expect(webServiceMock.getStatusInfo(validAOC)).andReturn("PEar150M,Planet,Earth,365,6371,384400,5972000000000000000000000000");
+        EasyMock.expectLastCall().times(1);
         replay(webServiceMock);
 
         cut = new SolarSystemInformation(validUserID,validPassword,webServiceMock);
@@ -343,7 +350,9 @@ public class SolarSystemInformationTest {
     void get_object_AOC_returns_valid_data_when_web_service_successfully_called () throws invalidUserInputException, invalidWebServiceDataFormatException {
         //arrange
         expect(webServiceMock.authenticate(validUserID,validPassword)).andReturn(true);
+        EasyMock.expectLastCall().times(1);
         expect(webServiceMock.getStatusInfo(validAOC)).andReturn("PEar150M,Planet,Earth,365,6371,384400,5972000000000000000000000000");
+        EasyMock.expectLastCall().times(1);
         replay(webServiceMock);
 
         cut = new SolarSystemInformation(validUserID,validPassword,webServiceMock);
@@ -361,7 +370,9 @@ public class SolarSystemInformationTest {
     void get_orbital_period_returns_valid_data_when_web_service_successfully_called () throws invalidUserInputException, invalidWebServiceDataFormatException {
         //arrange
         expect(webServiceMock.authenticate(validUserID,validPassword)).andReturn(true);
+        EasyMock.expectLastCall().times(1);
         expect(webServiceMock.getStatusInfo(validAOC)).andReturn("PEar150M,Planet,Earth,365,6371,384400,5972000000000000000000000000");
+        EasyMock.expectLastCall().times(1);
         replay(webServiceMock);
 
         cut = new SolarSystemInformation(validUserID,validPassword,webServiceMock);
@@ -379,7 +390,9 @@ public class SolarSystemInformationTest {
     void get_radius_returns_valid_data_when_web_service_successfully_called () throws invalidUserInputException, invalidWebServiceDataFormatException {
         //arrange
         expect(webServiceMock.authenticate(validUserID,validPassword)).andReturn(true);
+        EasyMock.expectLastCall().times(1);
         expect(webServiceMock.getStatusInfo(validAOC)).andReturn("PEar150M,Planet,Earth,365,6371,384400,5972000000000000000000000000");
+        EasyMock.expectLastCall().times(1);
         replay(webServiceMock);
 
         cut = new SolarSystemInformation(validUserID,validPassword,webServiceMock);
@@ -398,7 +411,9 @@ public class SolarSystemInformationTest {
     void get_semi_major_axis_returns_valid_data_when_web_service_successfully_called () throws invalidUserInputException, invalidWebServiceDataFormatException {
         //arrange
         expect(webServiceMock.authenticate(validUserID,validPassword)).andReturn(true);
+        EasyMock.expectLastCall().times(1);
         expect(webServiceMock.getStatusInfo(validAOC)).andReturn("PEar150M,Planet,Earth,365,6371,384400,5972000000000000000000000000");
+        EasyMock.expectLastCall().times(1);
         replay(webServiceMock);
 
         cut = new SolarSystemInformation(validUserID,validPassword,webServiceMock);
@@ -417,7 +432,9 @@ public class SolarSystemInformationTest {
     void get_mass_returns_valid_data_when_web_service_successfully_called () throws invalidUserInputException, invalidWebServiceDataFormatException {
         //arrange
         expect(webServiceMock.authenticate(validUserID,validPassword)).andReturn(true);
+        EasyMock.expectLastCall().times(1);
         expect(webServiceMock.getStatusInfo(validAOC)).andReturn("PEar150M,Planet,Earth,365,6371,384400,5972000000000000000000000000");
+        EasyMock.expectLastCall().times(1);
         replay(webServiceMock);
 
         cut = new SolarSystemInformation(validUserID,validPassword,webServiceMock);
@@ -436,7 +453,9 @@ public class SolarSystemInformationTest {
     void toString_method_returns_correctly_formatted_string_when_valid_AOC_input () throws invalidUserInputException {
         //arrange
         expect(webServiceMock.authenticate(validUserID,validPassword)).andReturn(true);
+        EasyMock.expectLastCall().times(1);
         expect(webServiceMock.getStatusInfo(validAOC)).andReturn("PEar150M,Planet,Earth,365,6371,384400,5972000000000000000000000000");
+        EasyMock.expectLastCall().times(1);
         replay(webServiceMock);
 
         cut = new SolarSystemInformation(validUserID,validPassword, webServiceMock);
@@ -456,11 +475,17 @@ public class SolarSystemInformationTest {
         //arrange
         String invalidUserID = "aaaaaa";
         cut = new SolarSystemInformation(invalidUserID,validPassword,webServiceMock);
-        cut.initialiseAOCDetails(validAOC);
+
+
+        //act
+        assertThrows(invalidUserInputException.class, ()-> {
+            cut.initialiseAOCDetails(validAOC);
+        });
+
 
         String actualResult = cut.getObjectName();
 
-        assertTrue("Not Allowed".equals(actualResult));
+        assertEquals("Not Allowed", actualResult);
     }
 
 

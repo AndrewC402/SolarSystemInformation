@@ -32,11 +32,15 @@ public class SolarSystemInformation {
     }
 
     public void initialiseAOCDetails (String astronomicalObjectClassificationCode) throws invalidUserInputException {
+        getUserID(); //validates userID format
+        getUserPassword(); //validates user password format
+
+        webServiceMock.authenticate(getUserID(),getUserPassword()); //web service authenticates the correctly formatted details
+
         String info;
         if (astronomicalObjectClassificationCode.matches("[A-Z][0-9]{0,8}[A-Z][a-z]{2}[0-9]{1,3}[T,M,B,L,TL]")) {
             this.astronomicalObjectClassificationCode = astronomicalObjectClassificationCode;
 
-            webServiceMock.authenticate(getUserID(),getUserPassword());
             info = webServiceMock.getStatusInfo(astronomicalObjectClassificationCode);
 
 //            WebServiceStub stub = new WebServiceStub();
@@ -107,7 +111,7 @@ public class SolarSystemInformation {
     }
 
     public String getObjectName() throws invalidWebServiceDataFormatException {
-        if (objectName.matches("[0-9]*([A-Z][a-z]*)+")) {
+        if (objectName.matches("[0-9]*([A-Z][a-z]*)+") || objectName.equals("Not Allowed")) {
         } else {
             throw new invalidWebServiceDataFormatException("Invalid Object Name data format returned from web service");
         }
