@@ -298,7 +298,7 @@ public class SolarSystemInformationTest {
 
 
     @Test
-    void set_object_type_returns_valid_data () throws invalidUserInputException, invalidWebServiceDataFormatException {
+    void get_object_type_returns_valid_data_when_web_service_successfully_called () throws invalidUserInputException, invalidWebServiceDataFormatException {
         //arrange
         expect(webServiceMock.authenticate(validUserID,validPassword)).andReturn(true);
         expect(webServiceMock.getStatusInfo(validAOC)).andReturn("PEar150M,Planet,Earth,365,6371,384400,5972000000000000000000000000");
@@ -315,6 +315,26 @@ public class SolarSystemInformationTest {
         verify(webServiceMock);
 
     }
+
+    @Test
+    void get_object_name_returns_valid_data_when_web_service_successfully_called () throws invalidUserInputException, invalidWebServiceDataFormatException {
+        //arrange
+        expect(webServiceMock.authenticate(validUserID,validPassword)).andReturn(true);
+        expect(webServiceMock.getStatusInfo(validAOC)).andReturn("PEar150M,Planet,Earth,365,6371,384400,5972000000000000000000000000");
+        replay(webServiceMock);
+
+        cut = new SolarSystemInformation(validUserID,validPassword,webServiceMock);
+        cut.initialiseAOCDetails(validAOC);
+
+        //act
+        String actualResult = cut.getObjectName();
+
+        //assert
+        assertTrue("Earth".equals(actualResult));
+        verify(webServiceMock);
+
+    }
+
 
 
     @Test
