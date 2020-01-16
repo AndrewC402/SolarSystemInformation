@@ -78,6 +78,18 @@ public class SolarSystemInformationTest {
         });
     }
 
+    @Test
+    void invalid_user_input_exception_thrown_when_userID_does_not_contain_symbols () {
+        //arrange
+        String userIDWithoutSymbol = "A1b2cdefgh";
+        cut = new SolarSystemInformation(userIDWithoutSymbol,validPassword,webServiceMock);
+
+        //act and assert
+        assertThrows(invalidUserInputException.class, () -> {
+            cut.getUserID();
+        });
+    }
+
 
     @Test
     void invalid_user_input_exception_thrown_when_invalid_data_is_input() {
