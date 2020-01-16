@@ -414,6 +414,25 @@ public class SolarSystemInformationTest {
     }
 
     @Test
+    void get_mass_returns_valid_data_when_web_service_successfully_called () throws invalidUserInputException, invalidWebServiceDataFormatException {
+        //arrange
+        expect(webServiceMock.authenticate(validUserID,validPassword)).andReturn(true);
+        expect(webServiceMock.getStatusInfo(validAOC)).andReturn("PEar150M,Planet,Earth,365,6371,384400,5972000000000000000000000000");
+        replay(webServiceMock);
+
+        cut = new SolarSystemInformation(validUserID,validPassword,webServiceMock);
+        cut.initialiseAOCDetails(validAOC);
+
+        //act
+        BigDecimal actualResult = cut.getMass();
+
+
+        //assert
+        assertEquals(new BigDecimal(5.97E+27,precision),actualResult);
+        verify(webServiceMock);
+    }
+
+    @Test
     void toString_method_returns_correctly_formatted_string_when_valid_AOC_input () throws invalidUserInputException {
         //arrange
         expect(webServiceMock.authenticate(validUserID,validPassword)).andReturn(true);
