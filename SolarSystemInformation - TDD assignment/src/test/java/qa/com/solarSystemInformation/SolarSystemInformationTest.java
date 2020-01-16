@@ -163,22 +163,22 @@ public class SolarSystemInformationTest {
 
 
     @Test
-    void invalid_web_service_data_format_exception_thrown_when_invalid_object_name_returned() {
+    void invalid_web_service_data_format_exception_thrown_when_invalid_object_name_returned() throws invalidUserInputException {
         //arrange
-        String invalidObjectName = "sirius B"; //object types should be Pascal cased
+        expect(webServiceMock.authenticate(validUserID,validPassword)).andReturn(true);
+        expect(webServiceMock.getStatusInfo(validAOC)).andReturn("PEar150M,Planet,earth,365,6371,384400,5972000000000000000000000000"); //object name 'earth' should be in pascal casing
+        replay(webServiceMock);
+
         cut = new SolarSystemInformation(validUserID, validPassword, webServiceMock);
-        cut.setObjectName(invalidObjectName);
-        String expectedMessage = "Invalid Object Name data format returned from web service";
+        cut.initialiseAOCDetails(validAOC);
 
         //act
         Exception exception = assertThrows(invalidWebServiceDataFormatException.class, () -> {
             cut.getObjectName();
         });
 
-        String actualMessage = exception.getMessage();
-
         //assert
-        assertTrue(actualMessage.contains(expectedMessage));
+        assertTrue("Invalid Object Name data format returned from web service".equals(exception.getMessage()));
     }
 
     @Test
@@ -294,8 +294,10 @@ public class SolarSystemInformationTest {
     void invalid_userID_sets_all_fields_correctly () throws invalidWebServiceDataFormatException, invalidUserInputException {
         //arrange
         String invalidUserID = "dsfafagd";
+
         cut = new SolarSystemInformation(invalidUserID,validPassword, webServiceMock);
         cut.initialiseAOCDetails(validAOC);
+
         String expectedResult = "Not allowed";
 
         //act
